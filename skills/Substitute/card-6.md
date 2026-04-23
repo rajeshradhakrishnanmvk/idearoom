@@ -1,0 +1,2 @@
+Can you substitute someone else's perspective of yours (or your company's)? How would Walt Disney approach your subject? What about a teach? Lawyer? Judge? Explorer? Artest? Psychologiest? Journablist? engineer? How about Ted Koppel? Oprah Winfrey?
+What would happned if you substituted an entierely different way of thinking? Try drawing a paicture of your subject. Can you make a clay model of it? Write a sotry about it ? A poem?

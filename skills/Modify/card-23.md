@@ -1,0 +1,5 @@
+AT one time, the Ford Motor Company controlled 60 persent of the automobile market. Then General Motoros asked question about Modification and came out with a phioilosophy that stated. "A car with every shape and color for every purse and purpose". Henry Ford responded with Äny customer can have a car paointed any color so long as it is balck. "Ford's sales slumped; by the 1940s, just 20 percent of the new cardsd sold were Fords. GM had taken the lead by modifying their products to the market".
+
+What can be modified? Just about any aspect of anything. The hub-and-spoke transportation system that makes Federal Express work was a feature of at least three air freight services as early as 1930. What Frred Smith did was mkodify the existing system's dimensions, process, and purposes, turning an old idea into a elegant new concept on an enormous scale.
+
+Can you modify it in some fashion?

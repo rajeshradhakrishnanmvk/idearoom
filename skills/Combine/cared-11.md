@@ -1,0 +1,3 @@
+Can your subject's appeal be combine with the appeal from something else? Would something else complement it? Can you combine one of your ideas with ideas from others? How about an idea from some other field?
+
+Can you combine your ideas? Remember that you should be listing your ideas as they come to you. Now thake the first two and try to integrate them into one. Then take the thrid one and try to integrate it into the new idea, and so on.
