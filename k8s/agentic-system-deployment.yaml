@@ -1,0 +1,374 @@
+# Agentic OS - Phase 4 Reference Deployment
+# This file demonstrates the core components deployment structure
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: agentic-system
+  labels:
+    name: agentic-system
+    agentic.io/system: "true"
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: agentic-agents
+  labels:
+    name: agentic-agents
+    agentic.io/agents: "true"
+
+---
+# Message Bus (NATS) Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nats
+  namespace: agentic-system
+spec:
+  serviceName: nats
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nats
+  template:
+    metadata:
+      labels:
+        app: nats
+    spec:
+      containers:
+      - name: nats
+        image: nats:2.10-alpine
+        ports:
+        - containerPort: 4222
+          name: client
+        - containerPort: 6222
+          name: cluster
+        - containerPort: 8222
+          name: monitor
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        volumeMounts:
+        - name: data
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Gi
+
+---
+# PostgreSQL (State Store & Registry)
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgresql
+  namespace: agentic-system
+spec:
+  serviceName: postgresql
+  replicas: 3
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+      - name: postgresql
+        image: postgres:16-alpine
+        env:
+        - name: POSTGRES_DB
+          value: agentic
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: password
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        ports:
+        - containerPort: 5432
+          name: postgresql
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 100Gi
+
+---
+# Orchestrator Agent Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-orchestrator
+  namespace: agentic-agents
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: agent-orchestrator
+      agentic.io/type: orchestrator
+  template:
+    metadata:
+      labels:
+        app: agent-orchestrator
+        agentic.io/type: orchestrator
+        agentic.io/version: "2.0.0"
+    spec:
+      serviceAccountName: agent-orchestrator
+      containers:
+      - name: agent
+        image: agentic/agent-orchestrator:2.0.0
+        env:
+        - name: AGENT_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NATS_URL
+          value: "nats://nats.agentic-system:4222"
+        - name: DB_HOST
+          value: "postgresql.agentic-system"
+        - name: DB_NAME
+          value: "agentic"
+        - name: AI_MODEL
+          value: "gpt-4o-mini"
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ai-credentials
+              key: openai-api-key
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 9090
+          name: metrics
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+
+---
+# Cost Optimization Agent
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-cost
+  namespace: agentic-agents
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: agent-cost
+      agentic.io/type: cost
+  template:
+    metadata:
+      labels:
+        app: agent-cost
+        agentic.io/type: cost
+        agentic.io/autonomy: supervised
+    spec:
+      serviceAccountName: agent-cost
+      containers:
+      - name: agent
+        image: agentic/agent-cost:1.5.0
+        env:
+        - name: AGENT_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NATS_URL
+          value: "nats://nats.agentic-system:4222"
+        - name: AI_MODEL
+          value: "gpt-4o-mini"
+        - name: AUTONOMY_LEVEL
+          value: "supervised"
+        - name: AUTO_APPROVE_THRESHOLD
+          value: "30"  # Risk score threshold
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi
+
+---
+# Security Agent
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-security
+  namespace: agentic-agents
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: agent-security
+      agentic.io/type: security
+  template:
+    metadata:
+      labels:
+        app: agent-security
+        agentic.io/type: security
+        agentic.io/autonomy: supervised
+    spec:
+      serviceAccountName: agent-security
+      containers:
+      - name: agent
+        image: agentic/agent-security:1.3.0
+        env:
+        - name: AGENT_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NATS_URL
+          value: "nats://nats.agentic-system:4222"
+        - name: AI_MODEL
+          value: "gpt-4o-mini"
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi
+
+---
+# NLI Service (Natural Language Interface)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nli-service
+  namespace: agentic-system
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nli-service
+  template:
+    metadata:
+      labels:
+        app: nli-service
+    spec:
+      containers:
+      - name: nli
+        image: agentic/nli-service:1.0.0
+        env:
+        - name: NATS_URL
+          value: "nats://nats.agentic-system:4222"
+        - name: AI_MODEL
+          value: "gpt-4o"
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ai-credentials
+              key: openai-api-key
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 8081
+          name: websocket
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+
+---
+# Service definitions
+apiVersion: v1
+kind: Service
+metadata:
+  name: nats
+  namespace: agentic-system
+spec:
+  selector:
+    app: nats
+  ports:
+  - name: client
+    port: 4222
+    targetPort: 4222
+  - name: cluster
+    port: 6222
+    targetPort: 6222
+  - name: monitor
+    port: 8222
+    targetPort: 8222
+  clusterIP: None
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql
+  namespace: agentic-system
+spec:
+  selector:
+    app: postgresql
+  ports:
+  - port: 5432
+    targetPort: 5432
+  clusterIP: None
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nli-service
+  namespace: agentic-system
+spec:
+  selector:
+    app: nli-service
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  - name: websocket
+    port: 8081
+    targetPort: 8081
