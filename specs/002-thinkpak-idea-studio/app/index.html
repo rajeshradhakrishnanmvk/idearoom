@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ThinkPak Idea Studio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>ThinkPak Idea Studio</h1>
+      <p>Generate -> Shape -> Evaluate. No dependencies. Works offline.</p>
+    </header>
+
+    <main>
+      <section aria-labelledby="generate-heading" class="panel">
+        <h2 id="generate-heading">1. Generate</h2>
+        <div class="row">
+          <label for="promptCategory">Prompt Category</label>
+          <select id="promptCategory">
+            <option>Substitute</option>
+            <option>Combine</option>
+            <option>Adapt</option>
+            <option>Eliminate</option>
+            <option>Rearrange</option>
+            <option>Reverse</option>
+          </select>
+        </div>
+        <div class="row">
+          <label for="ideaTitle">Idea Title</label>
+          <input id="ideaTitle" type="text" maxlength="80" />
+        </div>
+        <div class="row">
+          <label for="ideaNote">Idea Note</label>
+          <textarea id="ideaNote" rows="3" maxlength="280"></textarea>
+        </div>
+        <button id="addIdea">Add Idea</button>
+        <ul id="ideaList" class="list"></ul>
+      </section>
+
+      <section aria-labelledby="shape-heading" class="panel">
+        <h2 id="shape-heading">2. Shape</h2>
+        <div class="row">
+          <label for="shapeIdeaSelect">Select Idea</label>
+          <select id="shapeIdeaSelect"></select>
+        </div>
+        <div class="row">
+          <label for="problem">Problem</label>
+          <textarea id="problem" rows="2"></textarea>
+        </div>
+        <div class="row">
+          <label for="audience">Audience</label>
+          <input id="audience" type="text" maxlength="100" />
+        </div>
+        <div class="row">
+          <label for="value">Value</label>
+          <textarea id="value" rows="2"></textarea>
+        </div>
+        <button id="saveShape">Save Concept</button>
+        <pre id="conceptPreview" class="preview"></pre>
+      </section>
+
+      <section aria-labelledby="evaluate-heading" class="panel">
+        <h2 id="evaluate-heading">3. Evaluate</h2>
+        <p>Use three criteria on a 1-5 scale for each idea.</p>
+        <div id="scoreBoard"></div>
+        <button id="computeRanking">Compute Ranking</button>
+        <ol id="rankingList"></ol>
+        <p id="winnerRationale" class="winner"></p>
+      </section>
+    </main>
+
+    <footer>
+      <button id="resetData" class="danger">Reset All Data</button>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
