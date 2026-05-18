@@ -133,6 +133,11 @@
                 <div class="summary">
                     <button id="tick-all" type="button">Tick All Workloads</button>
                     <button id="stop-all" type="button">Stop All Workloads</button>
+                    <label class="inline-control" for="events-retention">
+                        Event Retention
+                        <input id="events-retention" type="number" min="50" max="2000" step="50" value="250">
+                    </label>
+                    <button id="clear-events" type="button">Clear Events</button>
                 </div>
             </div>
             <div id="cluster-summary" class="summary"></div>

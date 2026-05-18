@@ -144,6 +144,20 @@ button:disabled {
     margin-bottom: 10px;
 }
 
+.inline-control {
+    display: inline-grid;
+    gap: 4px;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    font-weight: 700;
+}
+
+.inline-control input {
+    width: 110px;
+    padding: 7px 9px;
+    font-size: 0.85rem;
+}
+
 .chip {
     border: 1px solid #f0cda4;
     background: #fff5e9;

@@ -119,6 +119,7 @@ Build a real browser cluster runtime for learning and prototyping where user-sup
 
 ## Implemented Namespace Policy Controls
 - Namespace policy panel supports create/update for max workers and max memory quota.
+- Namespace policy cards support direct policy deletion.
 - Launch requests are denied when namespace policy ceilings would be exceeded.
 - Runtime namespace memory is continuously aggregated and emits warn/recover events when crossing policy limits.
 
@@ -126,6 +127,11 @@ Build a real browser cluster runtime for learning and prototyping where user-sup
 - Global trace view flattens all workload trace events into a searchable stream.
 - Filters support workload name substring, exact trace type, and message text search.
 - Results are sorted by most recent event to support rapid debugging across workloads.
+
+## Implemented Event Stream Controls
+- Event retention is configurable from the UI with bounded limits.
+- Event stream can be manually cleared without resetting workloads or artifacts.
+- Summary panel reports retained events versus retention cap.
 
 ## Next Evolution
 - Add optional public-key signature verification for artifact manifests.

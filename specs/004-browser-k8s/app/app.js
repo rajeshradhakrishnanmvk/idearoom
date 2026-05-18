@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tickAllBtn = document.getElementById('tick-all');
     const stopAllBtn = document.getElementById('stop-all');
+    const clearEventsBtn = document.getElementById('clear-events');
+    const eventsRetentionInput = document.getElementById('events-retention');
     const exportArtifactsBtn = document.getElementById('export-artifacts');
     const importArtifactsBtn = document.getElementById('import-artifacts');
     const artifactImportFile = document.getElementById('artifact-import-file');
@@ -48,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 nodes: defaultNodes(),
                 namespacePolicies: [],
                 namespaceAlertState: {},
+                eventsRetention: 250,
                 workloads: [],
                 events: []
             };
@@ -59,8 +62,10 @@ document.addEventListener('DOMContentLoaded', function () {
             parsed.nodes = Array.isArray(parsed.nodes) ? parsed.nodes : defaultNodes();
             parsed.namespacePolicies = Array.isArray(parsed.namespacePolicies) ? parsed.namespacePolicies : [];
             parsed.namespaceAlertState = parsed.namespaceAlertState || {};
+            parsed.eventsRetention = Number(parsed.eventsRetention) || 250;
             parsed.workloads = Array.isArray(parsed.workloads) ? parsed.workloads : [];
             parsed.events = Array.isArray(parsed.events) ? parsed.events : [];
+            parsed.events = parsed.events.slice(0, parsed.eventsRetention);
             parsed.workloads.forEach(normalizeWorkload);
             return parsed;
         } catch (error) {
@@ -69,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 nodes: defaultNodes(),
                 namespacePolicies: [],
                 namespaceAlertState: {},
+                eventsRetention: 250,
                 workloads: [],
                 events: []
             };
@@ -81,7 +87,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function addEvent(type, message, severity) {
         state.events.unshift({ at: Date.now(), type: type, message: message, severity: severity || 'info' });
-        state.events = state.events.slice(0, 250);
+        state.events = state.events.slice(0, state.eventsRetention);
+    }
+
+    function clampEventRetention(value) {
+        return Math.max(50, Math.min(2000, value));
     }
 
     function addLog(workload, message) {
@@ -578,7 +588,8 @@ self.onmessage = async function (event) {
             `<span class="chip">Workloads: ${state.workloads.length}</span>`,
             `<span class="chip">Running Workers: ${running}</span>`,
             `<span class="chip">Memory Warnings: ${overQuota}</span>`,
-            `<span class="chip">Errors: ${errored}</span>`
+            `<span class="chip">Errors: ${errored}</span>`,
+            `<span class="chip">Events Retained: ${state.events.length}/${state.eventsRetention}</span>`
         ].join('');
     }
 
@@ -690,8 +701,24 @@ self.onmessage = async function (event) {
                 <div class="meta">Workers: ${stats.runningCount}/${policy.maxWorkers}</div>
                 <div class="meta">Configured memory quotas: ${stats.configuredQuotaKb}/${policy.maxMemoryKb} KB</div>
                 <div class="meta">Runtime memory: ${stats.actualMemoryBytes} / ${policy.maxMemoryKb * 1024} bytes</div>
+                <div class="tag-row" style="margin-top:8px;">
+                    <button class="pull-btn" data-delete-policy="${policy.namespace}">Delete Policy</button>
+                </div>
             </article>`;
         }).join('');
+
+        namespacePolicyListEl.querySelectorAll('[data-delete-policy]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const namespace = button.getAttribute('data-delete-policy');
+                state.namespacePolicies = state.namespacePolicies.filter(function (policy) {
+                    return policy.namespace !== namespace;
+                });
+                delete state.namespaceAlertState[namespace];
+                addEvent('policy', `Deleted namespace policy for ${namespace}`, 'warn');
+                saveState();
+                renderAll();
+            });
+        });
     }
 
     function renderEvents() {
@@ -977,6 +1004,13 @@ self.onmessage = async function (event) {
         renderAll();
     });
 
+    clearEventsBtn.addEventListener('click', function () {
+        state.events = [];
+        addEvent('eventStream', 'Event stream manually cleared', 'warn');
+        saveState();
+        renderAll();
+    });
+
     exportArtifactsBtn.addEventListener('click', function () {
         exportArtifacts();
     });
@@ -998,11 +1032,23 @@ self.onmessage = async function (event) {
         manualNodeSelect.disabled = scheduleModeSelect.value === 'auto';
     });
 
+    eventsRetentionInput.addEventListener('change', function () {
+        const parsed = Number(eventsRetentionInput.value);
+        const nextValue = clampEventRetention(Number.isFinite(parsed) ? parsed : state.eventsRetention);
+        state.eventsRetention = nextValue;
+        eventsRetentionInput.value = String(nextValue);
+        state.events = state.events.slice(0, nextValue);
+        addEvent('eventStream', `Event retention set to ${nextValue}`, 'info');
+        saveState();
+        renderAll();
+    });
+
     [traceFilterWorkload, traceFilterType, traceFilterText].forEach(function (el) {
         el.addEventListener('input', renderGlobalTraceExplorer);
         el.addEventListener('change', renderGlobalTraceExplorer);
     });
 
+    eventsRetentionInput.value = String(clampEventRetention(Number(state.eventsRetention) || 250));
     bootRunningWorkloads();
     renderAll();
 });
