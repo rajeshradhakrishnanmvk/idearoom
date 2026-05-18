@@ -1,7 +1,7 @@
 # ThinkPak Substitution Model for Browser K8s Ecosystem
 
 ## Goal
-Replace image/container mental models with JavaScript-native artifacts and runtime units while preserving Kubernetes-like control plane behavior.
+Build a real browser cluster runtime for learning and prototyping where user-supplied main.flow.js executes inside Web Workers across browser nodes.
 
 ## ThinkPak Substitute Prompts Applied
 - Substitute objects: image -> artifact revision, container -> runtime unit.
@@ -19,6 +19,15 @@ Replace image/container mental models with JavaScript-native artifacts and runti
 | Tag | Revision | Version identity for artifact behavior.
 | Layer size | Module count | JS-first indicator for artifact complexity.
 
+## main.flow.js Contract
+- main.flow.js is required for each published artifact.
+- The file sets self.mainFlow with lifecycle hooks:
+  - onStart(ctx)
+  - onTick(ctx)
+  - onStop(ctx)
+- ctx includes podName, nodeName, tick, and mutable memory.
+- Hooks run inside dedicated Web Workers.
+
 ## Data Model
 - family:
   - ref: domain/family
@@ -26,28 +35,19 @@ Replace image/container mental models with JavaScript-native artifacts and runti
   - artifacts: artifact[]
   - updatedAt
 - artifact:
-  - revision
-  - moduleCount
-  - entrypoint
+  - ref
+  - mainFlowSource
   - publishedAt
 - runtimeUnit:
   - name
   - artifactRef
   - node
   - status
-  - probeIntervalSec
-  - failureThreshold
-  - restartPolicy
-  - restartCount
-  - startedAt
-- syncEvent:
-  - artifactRef
-  - at
-- service:
+  - tickCount
+  - lastOutput
+- node:
   - name
-  - selector
-  - strategy
-  - requestCount
+  - workerCapacity
 - controlPlaneEvent:
   - type
   - message
@@ -57,37 +57,31 @@ Replace image/container mental models with JavaScript-native artifacts and runti
 ## Browser Tech Mapping
 - State store: localStorage + in-memory model.
 - Control plane: form/event handlers + deterministic reducers.
-- Scheduler simulation: assign runtime units to nodes by score and free capacity.
-- Observability: summary chips + runtime list + sync history.
-- Event timeline: audit trail for schedule decisions, policy denials, probes, restarts, and service routing.
+- Scheduler simulation: assign workloads to nodes by capacity-aware score.
+- Runtime execution: each workload is a real Web Worker running main.flow.js.
+- Cluster controls: tick-all and stop-all send commands to active workers.
+- Event timeline: audit trail for artifact publication, scheduling, ticks, and runtime errors.
 
 ## Implemented Scheduling Rules
-- Nodes have two hard limits: moduleBudget and unitCapacity.
-- Each runtime unit consumes moduleCount from its artifact revision.
-- Auto-score placement chooses the node with the highest score:
-  - score = (moduleHeadroom * 2) + unitHeadroom
-  - only nodes that satisfy both limits are candidates.
-- Manual placement validates the same limits before allowing start.
+- Nodes have workerCapacity limits.
+- Each workload replica consumes one worker slot.
+- Auto-score placement chooses node with highest free-capacity score.
+- Manual placement targets explicit node and validates free slots.
 
-## Implemented Policy Gate
-- Restricted families require at least one prior sync event for a specific artifact revision before a runtime unit can start.
-- Open families can start immediately if scheduler capacity checks pass.
-
-## Implemented Health & Restart Behavior
-- Runtime units support probe interval and failure threshold metadata.
-- Manual probe ticks can fail probabilistically to simulate unstable workloads.
-- If failure threshold is reached:
-  - on-failure: runtime unit restarts and restartCount increments.
-  - never: runtime unit transitions to Failed state.
-
-## Implemented Service Routing
-- Services bind to runtime units by selector token matching against unit name or artifact reference.
-- Routing strategies:
-  - round-robin
-  - random
-- Each route request records an event and increments requestCount.
+## Implemented Runtime Execution
+- Workloads launch as real Web Workers.
+- Worker lifecycle commands:
+  - start
+  - tick
+  - stop
+- Worker events:
+  - started
+  - tick
+  - stopped
+  - runtimeError
+- Runtime output from main.flow.js is captured as workload lastOutput.
 
 ## Next Evolution
-- Add readiness gate separate from liveness probes.
-- Add weighted service routing and canary split controls.
-- Add deployment object for desired replica reconciliation.
+- Add worker sandbox limits (message size and tick timeout guards).
+- Add artifact import/export for sharing flow bundles.
+- Add visual worker trace timeline per workload.

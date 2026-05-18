@@ -88,6 +88,7 @@ label {
 }
 
 input,
+textarea,
 select,
 button {
     border-radius: 10px;
@@ -97,6 +98,7 @@ button {
 }
 
 input:focus,
+textarea:focus,
 select:focus {
     border-color: var(--accent-2);
     outline: 2px solid #ffedd5;
@@ -114,6 +116,13 @@ button {
 button:hover {
     transform: translateY(-1px);
     box-shadow: 0 10px 20px rgba(217, 72, 15, 0.25);
+}
+
+button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
 
 .toolbar {
@@ -240,6 +249,16 @@ button:hover {
     align-items: end;
 }
 
+textarea {
+    resize: vertical;
+    min-height: 170px;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+}
+
+#deployment-list {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
 #node-list {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
@@ -251,6 +270,12 @@ button:hover {
 .event-card.error {
     border-color: #fecaca;
     background: #fff7f7;
+}
+
+#workload-list,
+#node-list,
+#artifact-list {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .empty {
