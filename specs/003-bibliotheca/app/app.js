@@ -230,9 +230,132 @@ export function initBooks(books) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// RED PHASE: Tests (T006-T008)
-// These tests MUST FAIL before corresponding implementations exist.
+// BOOK CARD RENDERER (T009)
 // ═══════════════════════════════════════════════════════════════════════════
+
+const LANGS = { Malayalam: '🇮🇳', English: '🇬🇧' };
+const STATUS_LABELS = { unread: 'Unread', reading: 'Reading', read: 'Read' };
+const STATUS_ICONS = { unread: '📖', reading: '📘', read: '✅' };
+
+/** Create a single book card DOM element. */
+export function createCardElement(book) {
+  const card = document.createElement('article');
+  card.className = 'book-card';
+  card.setAttribute('role', 'listitem');
+  card.setAttribute('aria-label', `${book.title} by ${book.author}`);
+  card.dataset.bookId = book.id;
+
+  const langClass = book.language === 'Malayalam' ? 'ml' : 'en';
+  const statusClass = book.status || 'unread';
+  const progress = percentComplete(book.currentPage || 0, book.totalPages || 1);
+  const langFlag = LANGS[book.language] || '';
+  const statusIcon = STATUS_ICONS[book.status] || STATUS_ICONS.unread;
+  const statusLabel = STATUS_LABELS[book.status] || 'Unread';
+
+  card.innerHTML = `
+    <div class="book-card-accent book-card-accent--${langClass}"></div>
+    <div class="book-card-body">
+      <h3 class="book-card-title" title="${escapeHtml(book.title)}">${escapeHtml(book.title)}</h3>
+      <p class="book-card-author" title="${escapeHtml(book.author)}">${escapeHtml(book.author)}</p>
+      <div class="book-card-meta">
+        <span class="book-card-badge badge-lang badge-lang--${langClass}" aria-label="Language: ${book.language}">
+          ${langFlag} ${book.language === 'Malayalam' ? 'ML' : 'EN'}
+        </span>
+        <span class="book-card-badge badge-genre">${escapeHtml(book.genre || 'Fiction')}</span>
+      </div>
+      <div class="book-card-footer">
+        <span class="book-card-pages">${book.totalPages || '?'} pages</span>
+        <button class="book-card-status status--${statusClass}" aria-label="Status: ${statusLabel}. Click to change.">
+          ${statusIcon} ${statusLabel}
+        </button>
+      </div>
+      <div class="book-card-progress" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" aria-label="${progress}% complete">
+        <div class="book-card-progress-fill" style="width:${progress}%"></div>
+      </div>
+    </div>
+  `;
+
+  return card;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BOOK LIST RENDERER (T010)
+// ═══════════════════════════════════════════════════════════════════════════
+
+/** Render a list of books into the grid. Handles empty state. */
+export function renderBookList(books) {
+  const grid = document.getElementById('book-grid');
+  const emptyState = document.getElementById('empty-state');
+
+  if (!grid) return;
+
+  grid.innerHTML = '';
+
+  if (!books || books.length === 0) {
+    grid.innerHTML = '';
+    if (emptyState) {
+      emptyState.hidden = false;
+      emptyState.querySelector('.empty-message').textContent =
+        'No books found. Try adjusting your search or filters.';
+    }
+    return;
+  }
+
+  if (emptyState) emptyState.hidden = true;
+
+  const fragment = document.createDocumentFragment();
+  books.forEach(book => fragment.appendChild(createCardElement(book)));
+  grid.appendChild(fragment);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SEARCH ENGINE (T011)
+// ═══════════════════════════════════════════════════════════════════════════
+
+/** Filter books by search query (title + author, case-insensitive). */
+export function searchBooks(query, books) {
+  if (!query || !query.trim()) return books;
+  const q = query.toLowerCase().trim();
+  return books.filter(b =>
+    b.title.toLowerCase().includes(q) ||
+    b.author.toLowerCase().includes(q)
+  );
+}
+
+/** Wire up search input with debounce. */
+function setupSearch() {
+  const input = document.getElementById('search-input');
+  const clearBtn = document.getElementById('search-clear');
+  if (!input) return;
+
+  const handleSearch = debounce(() => {
+    const query = input.value;
+    clearBtn.hidden = !query;
+    const filtered = searchBooks(query, getAllBooks());
+    renderBookList(filtered);
+    updateStats(filtered.length);
+  }, 200);
+
+  input.addEventListener('input', handleSearch);
+
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    clearBtn.hidden = true;
+    renderBookList(getAllBooks());
+    updateStats(getAllBooks().length);
+    input.focus();
+  });
+
+  // ESC key clears search
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      input.value = '';
+      clearBtn.hidden = true;
+      renderBookList(getAllBooks());
+      updateStats(getAllBooks().length);
+    }
+  });
+}
 
 function runAllTests() {
   console.log('🧪 Running Bibliotheca TDD test suite…');
@@ -255,6 +378,22 @@ function runAllTests() {
   testAddBook();
   testRemoveBook();
   testAddBookValidation();
+
+  // ── T009: Book Card Renderer ────────────────────────────────────────
+  testCreateCardElement();
+  testCreateCardMissingFields();
+
+  // ── T010: Book List Renderer ────────────────────────────────────────
+  testRenderBookList();
+  testRenderEmptyList();
+
+  // ── T011: Search Engine ─────────────────────────────────────────────
+  testSearchByTitle();
+  testSearchByAuthor();
+  testSearchCaseInsensitive();
+  testSearchNoMatch();
+  testSearchEmptyQuery();
+  testSearchMalayalam();
 
   console.log(`✅ Test suite complete: ${testPassCount} passed, ${testFailCount} failed`);
 }
@@ -434,6 +573,121 @@ function testAddBookValidation() {
   assert(r6.error !== null, 'T007: addBook rejects whitespace-only title');
 }
 
+// ── T009 Tests ────────────────────────────────────────────────────────────
+
+function testCreateCardElement() {
+  const book = { id: 'test1', title: 'Test Book', author: 'Test Author',
+    language: 'English', genre: 'Fiction', totalPages: 200, currentPage: 50, status: 'reading' };
+  const card = createCardElement(book);
+  assert(card instanceof HTMLElement, 'T009: createCardElement returns HTMLElement');
+  assert(card.classList.contains('book-card'), 'T009: card has book-card class');
+  assert(card.dataset.bookId === 'test1', 'T009: card has data-book-id');
+  assert(card.querySelector('.book-card-title').textContent.includes('Test Book'),
+    'T009: card shows title');
+  assert(card.querySelector('.book-card-author').textContent.includes('Test Author'),
+    'T009: card shows author');
+  assert(card.querySelector('.badge-lang--en'), 'T009: English book has EN badge class');
+  assert(card.querySelector('.status--reading'), 'T009: reading book has reading status class');
+  assert(card.querySelector('.book-card-progress'), 'T009: card has progress bar');
+}
+
+function testCreateCardMissingFields() {
+  const minimal = { id: 'min', title: 'Min', author: 'Min', language: 'English',
+    genre: '', totalPages: null, currentPage: 0, status: 'unread' };
+  const card = createCardElement(minimal);
+  assert(card instanceof HTMLElement, 'T009: createCardElement handles minimal book');
+  assert(card.querySelector('.book-card-title'), 'T009: minimal card has title');
+  assert(card.querySelector('.status--unread'), 'T009: minimal card defaults to unread status');
+}
+
+// ── T010 Tests ────────────────────────────────────────────────────────────
+
+function testRenderBookList() {
+  const books = [
+    { id: 'r1', title: 'R1', author: 'A1', language: 'English', genre: 'Fiction', totalPages: 100, currentPage: 0, status: 'unread' },
+    { id: 'r2', title: 'R2', author: 'A2', language: 'Malayalam', genre: 'Fiction', totalPages: 200, currentPage: 50, status: 'reading' }
+  ];
+  renderBookList(books);
+  const grid = document.getElementById('book-grid');
+  const cards = grid.querySelectorAll('.book-card');
+  assertEqual(cards.length, 2, 'T010: renderBookList renders correct number of cards');
+  assert(!document.getElementById('empty-state').hidden, false, 'T010: empty state is hidden when books exist');
+}
+
+function testRenderEmptyList() {
+  renderBookList([]);
+  const grid = document.getElementById('book-grid');
+  const cards = grid.querySelectorAll('.book-card');
+  assertEqual(cards.length, 0, 'T010: renderBookList with empty array clears grid');
+
+  renderBookList(null);
+  const emptyState = document.getElementById('empty-state');
+  assert(!emptyState.hidden, 'T010: empty state is shown when no books');
+  assert(emptyState.querySelector('.empty-message').textContent.length > 0,
+    'T010: empty state has message text');
+}
+
+// ── T011 Tests ────────────────────────────────────────────────────────────
+
+function testSearchByTitle() {
+  const books = [
+    { id: 's1', title: 'The Hobbit', author: 'JRR Tolkien', language: 'English', genre: 'Fantasy', totalPages: 300, currentPage: 0, status: 'unread' },
+    { id: 's2', title: 'Dune', author: 'Frank Herbert', language: 'English', genre: 'Sci-Fi', totalPages: 500, currentPage: 0, status: 'unread' },
+    { id: 's3', title: 'The Lord of the Rings', author: 'JRR Tolkien', language: 'English', genre: 'Fantasy', totalPages: 1000, currentPage: 0, status: 'unread' }
+  ];
+  const results = searchBooks('Hobbit', books);
+  assertEqual(results.length, 1, 'T011: search by title finds exact match');
+  assertEqual(results[0].title, 'The Hobbit', 'T011: search returns correct book');
+}
+
+function testSearchByAuthor() {
+  const books = [
+    { id: 's1', title: 'The Hobbit', author: 'JRR Tolkien', language: 'English', genre: 'Fantasy', totalPages: 300, currentPage: 0, status: 'unread' },
+    { id: 's2', title: 'Dune', author: 'Frank Herbert', language: 'English', genre: 'Sci-Fi', totalPages: 500, currentPage: 0, status: 'unread' },
+    { id: 's3', title: 'The Lord of the Rings', author: 'JRR Tolkien', language: 'English', genre: 'Fantasy', totalPages: 1000, currentPage: 0, status: 'unread' }
+  ];
+  const results = searchBooks('Tolkien', books);
+  assertEqual(results.length, 2, 'T011: search by author finds all books by author');
+}
+
+function testSearchCaseInsensitive() {
+  const books = [
+    { id: 's1', title: 'Machine Learning', author: 'Expert', language: 'English', genre: 'Technology', totalPages: 400, currentPage: 0, status: 'unread' }
+  ];
+  const results = searchBooks('machine learning', books);
+  assertEqual(results.length, 1, 'T011: search is case-insensitive');
+}
+
+function testSearchNoMatch() {
+  const books = [
+    { id: 's1', title: 'The Hobbit', author: 'Tolkien', language: 'English', genre: 'Fantasy', totalPages: 300, currentPage: 0, status: 'unread' }
+  ];
+  const results = searchBooks('zzzznotabook', books);
+  assertEqual(results.length, 0, 'T011: search returns empty for no match');
+}
+
+function testSearchEmptyQuery() {
+  const books = [
+    { id: 's1', title: 'Test', author: 'Author', language: 'English', genre: 'Fiction', totalPages: 100, currentPage: 0, status: 'unread' }
+  ];
+  assertEqual(searchBooks('', books), books, 'T011: empty query returns all books');
+  assertEqual(searchBooks('  ', books), books, 'T011: whitespace query returns all books');
+  assertEqual(searchBooks(null, books), books, 'T011: null query returns all books');
+}
+
+function testSearchMalayalam() {
+  const books = [
+    { id: 'ml1', title: 'ആടുജീവിതം', author: 'ബെന്യാമിൻ', language: 'Malayalam', genre: 'Fiction', totalPages: 200, currentPage: 0, status: 'unread' },
+    { id: 'en1', title: 'English Book', author: 'Author', language: 'English', genre: 'Fiction', totalPages: 100, currentPage: 0, status: 'unread' }
+  ];
+  const results = searchBooks('ആടുജീവിതം', books);
+  assertEqual(results.length, 1, 'T011: search works with Malayalam Unicode text');
+  assertEqual(results[0].id, 'ml1', 'T011: Malayalam search finds correct book');
+
+  const authorResults = searchBooks('ബെന്യാമിൻ', books);
+  assertEqual(authorResults.length, 1, 'T011: search by Malayalam author works');
+}
+
 // ── Run tests on module load ────────────────────────────────────────────────
 runAllTests();
 
@@ -445,6 +699,8 @@ async function initApp() {
   const stored = loadBooks();
   if (stored && stored.length > 0) {
     updateStats(stored.length);
+    renderBookList(stored);
+    setupSearch();
     console.log(`📚 Loaded ${stored.length} books from localStorage.`);
     return;
   }
@@ -456,6 +712,8 @@ async function initApp() {
     const mockBooks = await resp.json();
     initBooks(mockBooks);
     updateStats(mockBooks.length);
+    renderBookList(mockBooks);
+    setupSearch();
     console.log(`📚 Seeded ${mockBooks.length} books from mock data.`);
   } catch (e) {
     console.error('Failed to load mock data:', e);
