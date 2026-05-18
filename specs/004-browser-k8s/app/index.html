@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artifact Mesh Studio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-inner">
+            <h1>Artifact Mesh Studio</h1>
+            <p>Browser-native orchestration ecosystem using JavaScript artifacts and runtime units.</p>
+        </div>
+    </header>
+
+    <main class="layout" id="app-root">
+        <section class="panel">
+            <h2>Create Artifact Family</h2>
+            <form id="family-form" class="stack">
+                <label>
+                    Domain
+                    <input type="text" name="domain" placeholder="ideas" required>
+                </label>
+                <label>
+                    Family Name
+                    <input type="text" name="family" placeholder="signal-processor" required>
+                </label>
+                <label>
+                    Policy
+                    <select name="policy">
+                        <option value="open">Open</option>
+                        <option value="restricted">Restricted</option>
+                    </select>
+                </label>
+                <button type="submit">Create Family</button>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Publish JS Artifact</h2>
+            <form id="artifact-form" class="stack">
+                <label>
+                    Target Family
+                    <select name="familyTarget" id="family-target" required></select>
+                </label>
+                <label>
+                    Revision
+                    <input type="text" name="revision" placeholder="r2026.05.18" required>
+                </label>
+                <label>
+                    Module Count
+                    <input type="number" name="moduleCount" placeholder="12" min="1" required>
+                </label>
+                <label>
+                    Entrypoint
+                    <input type="text" name="entrypoint" placeholder="main.flow.js" required>
+                </label>
+                <button type="submit">Publish Artifact</button>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Instantiate Runtime Unit</h2>
+            <form id="runtime-form" class="stack">
+                <label>
+                    Artifact Revision
+                    <select name="artifactRef" id="artifact-ref" required></select>
+                </label>
+                <label>
+                    Unit Name
+                    <input type="text" name="unitName" placeholder="unit-alpha" required>
+                </label>
+                <label>
+                    Scheduling Mode
+                    <select name="scheduleMode" id="schedule-mode">
+                        <option value="auto">Auto-Score</option>
+                        <option value="manual">Manual Node</option>
+                    </select>
+                </label>
+                <label>
+                    Manual Node Target
+                    <select name="runtimeNode" id="runtime-node"></select>
+                </label>
+                <label>
+                    Probe Interval (seconds)
+                    <input type="number" name="probeInterval" placeholder="15" min="1" value="15" required>
+                </label>
+                <label>
+                    Failure Threshold
+                    <input type="number" name="failureThreshold" placeholder="3" min="1" value="3" required>
+                </label>
+                <label>
+                    Restart Policy
+                    <select name="restartPolicy">
+                        <option value="on-failure">On-Failure</option>
+                        <option value="never">Never</option>
+                    </select>
+                </label>
+                <button type="submit">Start Unit</button>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Register Mesh Node</h2>
+            <form id="node-form" class="stack">
+                <label>
+                    Node Name
+                    <input type="text" name="nodeName" placeholder="node-a" required>
+                </label>
+                <label>
+                    Module Budget
+                    <input type="number" name="moduleBudget" placeholder="64" min="1" required>
+                </label>
+                <label>
+                    Unit Capacity
+                    <input type="number" name="unitCapacity" placeholder="8" min="1" required>
+                </label>
+                <button type="submit">Add Node</button>
+            </form>
+        </section>
+
+        <section class="panel panel-wide">
+            <div class="toolbar">
+                <h2>Artifact Families</h2>
+                <input type="search" id="search-input" placeholder="Search domain/family/revision/entrypoint">
+            </div>
+            <div id="mesh-summary" class="summary"></div>
+            <div id="mesh-list" class="registry-list"></div>
+        </section>
+
+        <section class="panel panel-wide">
+            <div class="toolbar">
+                <h2>Runtime Units</h2>
+            </div>
+            <div id="runtime-list" class="registry-list"></div>
+        </section>
+
+        <section class="panel panel-wide">
+            <div class="toolbar">
+                <h2>Service Routing</h2>
+            </div>
+            <form id="service-form" class="stack service-grid">
+                <label>
+                    Service Name
+                    <input type="text" name="serviceName" placeholder="svc-gateway" required>
+                </label>
+                <label>
+                    Selector Token
+                    <input type="text" name="selector" placeholder="unit-" required>
+                </label>
+                <label>
+                    Routing Strategy
+                    <select name="strategy">
+                        <option value="round-robin">Round Robin</option>
+                        <option value="random">Random</option>
+                    </select>
+                </label>
+                <button type="submit">Create Service</button>
+            </form>
+            <div id="service-list" class="registry-list"></div>
+        </section>
+
+        <section class="panel panel-wide">
+            <div class="toolbar">
+                <h2>Mesh Nodes</h2>
+            </div>
+            <div id="node-list" class="registry-list"></div>
+        </section>
+
+        <section class="panel panel-wide">
+            <div class="toolbar">
+                <h2>Control Plane Events</h2>
+            </div>
+            <div id="event-list" class="registry-list"></div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
