@@ -500,6 +500,140 @@ function setupAddBook() {
   });
 }
 
+// ── Import / Export ───────────────────────────────────────────────────────────
+
+/** Export current library to a downloadable JSON file. */
+export function exportLibrary() {
+  const books = getAllBooks();
+  const json = JSON.stringify(books, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const date = new Date().toISOString().slice(0, 10);
+  a.href = url;
+  a.download = `bibliotheca-${date}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+/**
+ * Import books from a JSON file.
+ * mode: 'replace' (default) or 'merge' (append without duplicating IDs).
+ * Returns { imported, skipped, error }.
+ */
+export function importLibrary(jsonText, mode = 'replace') {
+  let parsed;
+  try {
+    parsed = JSON.parse(jsonText);
+  } catch {
+    return { imported: 0, skipped: 0, error: 'Invalid JSON file.' };
+  }
+
+  if (!Array.isArray(parsed)) {
+    return { imported: 0, skipped: 0, error: 'JSON must be an array of books.' };
+  }
+
+  // Validate each entry has the minimum required fields
+  const valid = [];
+  let skipped = 0;
+  for (const item of parsed) {
+    if (
+      item && typeof item === 'object' &&
+      typeof item.title === 'string' && item.title.trim() &&
+      typeof item.author === 'string' && item.author.trim() &&
+      Number.isInteger(item.totalPages) && item.totalPages > 0
+    ) {
+      valid.push({
+        id: item.id || (crypto.randomUUID ? crypto.randomUUID().slice(0, 8) : Math.random().toString(36).slice(2, 10)),
+        title: item.title.trim(),
+        author: item.author.trim(),
+        language: item.language || 'English',
+        genre: item.genre || 'Fiction',
+        totalPages: item.totalPages,
+        currentPage: Math.max(0, item.currentPage || 0),
+        status: ['unread', 'reading', 'read'].includes(item.status) ? item.status : 'unread'
+      });
+    } else {
+      skipped++;
+    }
+  }
+
+  if (valid.length === 0) {
+    return { imported: 0, skipped, error: 'No valid books found in file. Each book needs title, author, and totalPages.' };
+  }
+
+  if (mode === 'merge') {
+    const existingIds = new Set(getAllBooks().map(b => b.id));
+    const newBooks = valid.filter(b => !existingIds.has(b.id));
+    const merged = [...getAllBooks(), ...newBooks];
+    initBooks(merged);
+    return { imported: newBooks.length, skipped: skipped + (valid.length - newBooks.length), error: null };
+  }
+
+  // replace
+  initBooks(valid);
+  return { imported: valid.length, skipped, error: null };
+}
+
+function setupImportExport() {
+  const exportBtn = document.getElementById('export-btn');
+  const importBtn = document.getElementById('import-btn');
+  const fileInput = document.getElementById('import-file-input');
+  if (!exportBtn || !importBtn || !fileInput) return;
+
+  exportBtn.addEventListener('click', () => {
+    if (getAllBooks().length === 0) {
+      alert('Your library is empty — nothing to export.');
+      return;
+    }
+    exportLibrary();
+  });
+
+  importBtn.addEventListener('click', () => {
+    fileInput.value = '';
+    fileInput.click();
+  });
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const existing = getAllBooks().length;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const mode = existing > 0
+        ? (window.confirm(`You have ${existing} books in your library.\n\nOK = Merge (keep existing + add new)\nCancel = Replace (overwrite with imported books)`)
+            ? 'merge' : 'replace')
+        : 'replace';
+
+      const { imported, skipped, error } = importLibrary(e.target.result, mode);
+      if (error) {
+        alert(`Import failed: ${error}`);
+        return;
+      }
+
+      _currentFilter = 'all';
+      _currentQuery = '';
+      const searchInput = document.getElementById('search-input');
+      if (searchInput) searchInput.value = '';
+      const clearBtn = document.getElementById('search-clear');
+      if (clearBtn) clearBtn.hidden = true;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('filter-btn--active'));
+      document.querySelector('.filter-btn[data-filter="all"]')?.classList.add('filter-btn--active');
+
+      renderBookList(getFilteredBooks());
+      updateStats(getAllBooks().length);
+
+      const msg = skipped > 0
+        ? `Imported ${imported} books (${skipped} skipped — missing required fields).`
+        : `Imported ${imported} books successfully.`;
+      alert(msg);
+    };
+    reader.onerror = () => alert('Failed to read the file.');
+    reader.readAsText(file);
+  });
+}
+
 function runAllTests() {
   console.log('🧪 Running Bibliotheca TDD test suite…');
 
@@ -844,6 +978,7 @@ async function initApp() {
   setupSearch();
   setupFilters();
   setupAddBook();
+  setupImportExport();
 
   // Try loading from localStorage first
   const stored = loadBooks();

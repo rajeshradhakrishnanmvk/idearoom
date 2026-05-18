@@ -18,13 +18,37 @@
         <h1 class="app-title">📚 Bibliotheca</h1>
         <p class="app-subtitle" id="library-stats">Loading your library…</p>
       </div>
-      <button
-        id="theme-toggle"
-        class="theme-toggle"
-        type="button"
-        aria-label="Switch to dark mode"
-        title="Toggle dark/light mode"
-      >🌙</button>
+      <div class="header-actions">
+        <button
+          id="export-btn"
+          class="header-icon-btn"
+          type="button"
+          aria-label="Export library to JSON"
+          title="Export library as JSON"
+        >📤</button>
+        <button
+          id="import-btn"
+          class="header-icon-btn"
+          type="button"
+          aria-label="Import library from JSON"
+          title="Import library from JSON"
+        >📥</button>
+        <input
+          type="file"
+          id="import-file-input"
+          accept=".json,application/json"
+          aria-hidden="true"
+          tabindex="-1"
+          hidden
+        >
+        <button
+          id="theme-toggle"
+          class="theme-toggle"
+          type="button"
+          aria-label="Switch to dark mode"
+          title="Toggle dark/light mode"
+        >🌙</button>
+      </div>
     </div>
   </header>
 
