@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bibliotheca — Personal Library Management System. Browse, search, and track 122 books.">
+  <title>Bibliotheca — My Library</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Skip navigation link for keyboard users -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header with app title -->
+  <header class="app-header" role="banner">
+    <h1 class="app-title">📚 Bibliotheca</h1>
+    <p class="app-subtitle" id="library-stats">Loading your library…</p>
+  </header>
+
+  <!-- Search: role="search" landmark per ARIA -->
+  <div class="search-bar" role="search" aria-label="Search books">
+    <label for="search-input" class="sr-only">Search by title or author</label>
+    <input
+      type="search"
+      id="search-input"
+      class="search-input"
+      placeholder="Search by title or author…"
+      aria-label="Search books by title or author"
+      autocomplete="off"
+    >
+    <button
+      class="search-clear"
+      id="search-clear"
+      aria-label="Clear search"
+      type="button"
+      hidden
+    >&times;</button>
+  </div>
+
+  <!-- Main content: book grid -->
+  <main id="main-content" class="main-content">
+    <!-- Book grid rendered here by app.js -->
+    <div id="book-grid" class="book-grid" role="list" aria-label="Book library">
+      <p class="loading-message">Loading your library…</p>
+    </div>
+
+    <!-- Empty state (hidden by default) -->
+    <div id="empty-state" class="empty-state" hidden>
+      <p class="empty-message"></p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer" role="contentinfo">
+    <p>Bibliotheca v1.0 — Zero dependencies. Your books, your browser.</p>
+  </footer>
+
+  <!-- Test harness: rendered inline, follows constitution TDD mandate -->
+  <section id="test-harness" class="test-harness" aria-label="Test results" role="region">
+    <h2 class="test-harness-title">🧪 Test Harness</h2>
+    <div class="test-summary">
+      <span id="test-pass-count" class="test-count test-pass">0 passed</span>
+      <span id="test-fail-count" class="test-count test-fail">0 failed</span>
+      <span id="test-total-count" class="test-count test-total">0 total</span>
+    </div>
+    <ol id="test-results" class="test-results" role="list"></ol>
+  </section>
+
+  <!-- Application module -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+/* ==========================================================================
+   Bibliotheca — Design Tokens & Base Styles
+   Zero dependencies. Custom properties for everything.
+   ========================================================================== */
+
+/* ── Base Reset ─────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── CSS Custom Properties ──────────────────────────────────────────────── */
+:root {
+  /* Color palette */
+  --color-primary: #2563eb;          /* Blue 600 — primary actions */
+  --color-primary-hover: #1d4ed8;    /* Blue 700 */
+  --color-primary-light: #dbeafe;    /* Blue 100 — subtle backgrounds */
+
+  --color-surface: #ffffff;          /* Card/panel backgrounds */
+  --color-surface-alt: #f8fafc;      /* Alternate surface (subtle gray) */
+  --color-background: #f1f5f9;       /* Page background */
+
+  --color-text: #0f172a;             /* Slate 900 — primary text */
+  --color-text-secondary: #475569;   /* Slate 600 — secondary text */
+  --color-text-muted: #94a3b8;       /* Slate 400 — muted/placeholder */
+
+  --color-border: #e2e8f0;           /* Slate 200 — borders, dividers */
+  --color-border-focus: #2563eb;     /* Focus ring color */
+
+  /* Accent: language badges */
+  --color-accent-ml: #16a34a;        /* Green 600 — Malayalam */
+  --color-accent-ml-bg: #dcfce7;     /* Green 100 */
+  --color-accent-en: #2563eb;        /* Blue 600 — English */
+  --color-accent-en-bg: #dbeafe;     /* Blue 100 */
+
+  /* Status colors */
+  --color-status-unread: #94a3b8;    /* Slate 400 — Unread */
+  --color-status-reading: #d97706;   /* Amber 600 — Reading */
+  --color-status-read: #16a34a;      /* Green 600 — Read */
+
+  /* Feedback */
+  --color-success: #16a34a;          /* Green 600 */
+  --color-warning: #d97706;          /* Amber 600 */
+  --color-error: #dc2626;            /* Red 600 */
+  --color-error-bg: #fef2f2;         /* Red 50 */
+
+  /* Test harness */
+  --color-test-pass: #16a34a;
+  --color-test-pass-bg: #f0fdf4;
+  --color-test-fail: #dc2626;
+  --color-test-fail-bg: #fef2f2;
+
+  /* Spacing scale (4px base) */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Noto Sans", "Noto Sans Malayalam", Oxygen, Ubuntu, Cantarell,
+               "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono",
+               "Cascadia Code", Consolas, monospace;
+
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Borders & Radius */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+
+  /* Layout */
+  --max-width: 80rem;     /* 1280px */
+  --header-height: 4rem;
+}
+
+/* ── Dark Theme ──────────────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --color-surface: #1e293b;
+  --color-surface-alt: #0f172a;
+  --color-background: #020617;
+  --color-text: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-border: #334155;
+  --color-border-focus: #60a5fa;
+  --color-primary-light: #1e3a5f;
+  --color-accent-ml-bg: #14532d;
+  --color-accent-en-bg: #1e3a5f;
+  --color-error-bg: #450a0a;
+  --color-test-pass-bg: #14532d;
+  --color-test-fail-bg: #450a0a;
+}
+
+/* ── Document ────────────────────────────────────────────────────────────── */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Accessibility: Skip Link ────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-md);
+  z-index: 1000;
+  text-decoration: none;
+  font-weight: var(--font-medium);
+}
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+/* ── Screen Reader Only ──────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.app-header {
+  text-align: center;
+  padding: var(--space-8) var(--space-4) var(--space-4);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.app-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  line-height: var(--leading-tight);
+}
+
+.app-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-1);
+}
+
+/* ── Search Bar ──────────────────────────────────────────────────────────── */
+.search-bar {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-4);
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--space-3) var(--space-10) var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  font-family: var(--font-sans);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color var(--transition-fast);
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.search-clear {
+  position: absolute;
+  right: calc(var(--space-4) + var(--space-2));
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: var(--text-xl);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: var(--space-1);
+  line-height: 1;
+  border-radius: var(--radius-full);
+  transition: color var(--transition-fast);
+}
+
+.search-clear:hover {
+  color: var(--color-text);
+}
+
+/* ── Main Content ────────────────────────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-4);
+  width: 100%;
+}
+
+/* ── Book Grid ───────────────────────────────────────────────────────────── */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+/* Responsive: 3 columns */
+@media (max-width: 1200px) {
+  .book-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Responsive: 2 columns */
+@media (max-width: 900px) {
+  .book-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Responsive: 1 column */
+@media (max-width: 600px) {
+  .book-grid { grid-template-columns: 1fr; }
+  .app-title { font-size: var(--text-2xl); }
+}
+
+/* ── Loading / Empty States ──────────────────────────────────────────────── */
+.loading-message,
+.empty-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-12) var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: var(--text-lg);
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-8);
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+.app-footer {
+  text-align: center;
+  padding: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── Test Harness ────────────────────────────────────────────────────────── */
+.test-harness {
+  max-width: var(--max-width);
+  margin: var(--space-8) auto;
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border-top: 3px solid var(--color-primary);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.test-harness-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-4);
+}
+
+.test-summary {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.test-count {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  font-family: var(--font-mono);
+}
+
+.test-pass {
+  background: var(--color-test-pass-bg);
+  color: var(--color-test-pass);
+}
+
+.test-fail {
+  background: var(--color-test-fail-bg);
+  color: var(--color-test-fail);
+}
+
+.test-total {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.test-results {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.test-result {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+  border-left: 3px solid transparent;
+}
+
+.test-result--pass {
+  background: var(--color-test-pass-bg);
+  border-left-color: var(--color-test-pass);
+  color: var(--color-test-pass);
+}
+
+.test-result--fail {
+  background: var(--color-test-fail-bg);
+  border-left-color: var(--color-test-fail);
+  color: var(--color-test-fail);
+}
+
+.test-result--fail .test-detail {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  opacity: 0.8;
+}
+
+/* ── Focus Styles (Global) ───────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* ── Selection ───────────────────────────────────────────────────────────── */
+::selection {
+  background: var(--color-primary-light);
+  color: var(--color-text);
+}
