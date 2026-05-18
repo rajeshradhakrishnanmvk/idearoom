@@ -675,6 +675,20 @@ function runAllTests() {
   console.log(`✅ Test suite complete: ${testPassCount} passed, ${testFailCount} failed`);
 }
 
+function runAllTestsWithoutTouchingUserStorage() {
+  const storedLibrary = localStorage.getItem(STORAGE_KEY);
+
+  try {
+    runAllTests();
+  } finally {
+    if (storedLibrary === null) {
+      localStorage.removeItem(STORAGE_KEY);
+    } else {
+      localStorage.setItem(STORAGE_KEY, storedLibrary);
+    }
+  }
+}
+
 // ── T008 Tests ────────────────────────────────────────────────────────────
 
 function testEscapeHtml() {
@@ -966,7 +980,7 @@ function testSearchMalayalam() {
 }
 
 // ── Run tests on module load ────────────────────────────────────────────────
-runAllTests();
+runAllTestsWithoutTouchingUserStorage();
 
 // ── Application Initialization ──────────────────────────────────────────────
 async function initApp() {
