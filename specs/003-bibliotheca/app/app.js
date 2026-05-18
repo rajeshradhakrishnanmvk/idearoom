@@ -265,9 +265,10 @@ export function createCardElement(book) {
       </div>
       <div class="book-card-footer">
         <span class="book-card-pages">${book.totalPages || '?'} pages</span>
-        <button class="book-card-status status--${statusClass}" aria-label="Status: ${statusLabel}. Click to change.">
+        <button class="book-card-status status--${statusClass}" aria-label="Status: ${statusLabel}. Click to change." type="button">
           ${statusIcon} ${statusLabel}
         </button>
+        <button class="book-card-delete" aria-label="Delete ${escapeHtml(book.title)}" type="button" title="Delete book">🗑</button>
       </div>
       <div class="book-card-progress" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" aria-label="${progress}% complete">
         <div class="book-card-progress-fill" style="width:${progress}%"></div>
@@ -322,6 +323,19 @@ export function searchBooks(query, books) {
   );
 }
 
+// ── Shared UI state ─────────────────────────────────────────────────────────
+let _currentFilter = 'all';
+let _currentQuery = '';
+
+/** Return books filtered by current status filter + search query. */
+function getFilteredBooks() {
+  let books = getAllBooks();
+  if (_currentFilter !== 'all') {
+    books = books.filter(b => b.status === _currentFilter);
+  }
+  return searchBooks(_currentQuery, books);
+}
+
 /** Wire up search input with debounce. */
 function setupSearch() {
   const input = document.getElementById('search-input');
@@ -329,20 +343,20 @@ function setupSearch() {
   if (!input) return;
 
   const handleSearch = debounce(() => {
-    const query = input.value;
-    clearBtn.hidden = !query;
-    const filtered = searchBooks(query, getAllBooks());
-    renderBookList(filtered);
-    updateStats(filtered.length);
+    _currentQuery = input.value;
+    clearBtn.hidden = !_currentQuery;
+    renderBookList(getFilteredBooks());
+    updateStats(getFilteredBooks().length);
   }, 200);
 
   input.addEventListener('input', handleSearch);
 
   clearBtn.addEventListener('click', () => {
     input.value = '';
+    _currentQuery = '';
     clearBtn.hidden = true;
-    renderBookList(getAllBooks());
-    updateStats(getAllBooks().length);
+    renderBookList(getFilteredBooks());
+    updateStats(getFilteredBooks().length);
     input.focus();
   });
 
@@ -350,10 +364,139 @@ function setupSearch() {
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       input.value = '';
+      _currentQuery = '';
       clearBtn.hidden = true;
-      renderBookList(getAllBooks());
-      updateStats(getAllBooks().length);
+      renderBookList(getFilteredBooks());
+      updateStats(getFilteredBooks().length);
     }
+  });
+}
+
+// ── Filter bar ───────────────────────────────────────────────────────────────
+function setupFilters() {
+  const filterBar = document.querySelector('.filter-bar');
+  if (!filterBar) return;
+
+  filterBar.addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    _currentFilter = btn.dataset.filter;
+
+    filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('filter-btn--active'));
+    btn.classList.add('filter-btn--active');
+
+    renderBookList(getFilteredBooks());
+    updateStats(getFilteredBooks().length);
+  });
+}
+
+// ── Card actions (status cycle + delete) ────────────────────────────────────
+const STATUS_CYCLE = { unread: 'reading', reading: 'read', read: 'unread' };
+
+function setupCardActions() {
+  const grid = document.getElementById('book-grid');
+  if (!grid) return;
+
+  grid.addEventListener('click', (e) => {
+    const card = e.target.closest('.book-card');
+    if (!card) return;
+    const id = card.dataset.bookId;
+
+    if (e.target.closest('.book-card-status')) {
+      const book = getBook(id);
+      if (!book) return;
+      const nextStatus = STATUS_CYCLE[book.status] || 'unread';
+      updateBook(id, { status: nextStatus });
+      renderBookList(getFilteredBooks());
+      updateStats(getFilteredBooks().length);
+    }
+
+    if (e.target.closest('.book-card-delete')) {
+      const book = getBook(id);
+      if (!book) return;
+      if (window.confirm(`Delete "${book.title}"?`)) {
+        removeBook(id);
+        renderBookList(getFilteredBooks());
+        updateStats(getFilteredBooks().length);
+      }
+    }
+  });
+}
+
+// ── Theme toggle ─────────────────────────────────────────────────────────────
+function setupThemeToggle() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  const saved = localStorage.getItem('bibliotheca-theme') || 'light';
+  document.documentElement.dataset.theme = saved;
+  _applyThemeButton(btn, saved);
+
+  btn.addEventListener('click', () => {
+    const current = document.documentElement.dataset.theme;
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('bibliotheca-theme', next);
+    _applyThemeButton(btn, next);
+  });
+}
+
+function _applyThemeButton(btn, theme) {
+  btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+}
+
+// ── Add Book dialog ───────────────────────────────────────────────────────────
+function setupAddBook() {
+  const fab = document.getElementById('add-book-btn');
+  const dialog = document.getElementById('add-book-dialog');
+  const form = document.getElementById('add-book-form');
+  const cancelBtn = document.getElementById('add-book-cancel');
+  const errorEl = document.getElementById('add-book-error');
+  if (!fab || !dialog || !form) return;
+
+  fab.addEventListener('click', () => {
+    form.reset();
+    errorEl.hidden = true;
+    dialog.showModal();
+    document.getElementById('form-title').focus();
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    dialog.close();
+  });
+
+  dialog.addEventListener('click', (e) => {
+    // Close on backdrop click
+    if (e.target === dialog) dialog.close();
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    errorEl.hidden = true;
+
+    const totalPagesRaw = parseInt(form.totalPages.value, 10);
+    const { book, error } = addBook({
+      title: form.title.value,
+      author: form.author.value,
+      language: form.language.value,
+      genre: form.genre.value || 'Fiction',
+      totalPages: totalPagesRaw,
+      currentPage: 0,
+      status: 'unread'
+    });
+
+    if (error) {
+      errorEl.textContent = error;
+      errorEl.hidden = false;
+      return;
+    }
+
+    dialog.close();
+    _currentFilter = 'all';
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('filter-btn--active'));
+    document.querySelector('.filter-btn[data-filter="all"]')?.classList.add('filter-btn--active');
+    renderBookList(getFilteredBooks());
+    updateStats(getFilteredBooks().length);
   });
 }
 
@@ -695,12 +838,18 @@ runAllTests();
 async function initApp() {
   const statsEl = document.getElementById('library-stats');
 
+  // Wire up all UI interactions first
+  setupThemeToggle();
+  setupCardActions();
+  setupSearch();
+  setupFilters();
+  setupAddBook();
+
   // Try loading from localStorage first
   const stored = loadBooks();
   if (stored && stored.length > 0) {
     updateStats(stored.length);
     renderBookList(stored);
-    setupSearch();
     console.log(`📚 Loaded ${stored.length} books from localStorage.`);
     return;
   }
@@ -713,7 +862,6 @@ async function initApp() {
     initBooks(mockBooks);
     updateStats(mockBooks.length);
     renderBookList(mockBooks);
-    setupSearch();
     console.log(`📚 Seeded ${mockBooks.length} books from mock data.`);
   } catch (e) {
     console.error('Failed to load mock data:', e);

@@ -13,8 +13,19 @@
 
   <!-- Header with app title -->
   <header class="app-header" role="banner">
-    <h1 class="app-title">📚 Bibliotheca</h1>
-    <p class="app-subtitle" id="library-stats">Loading your library…</p>
+    <div class="app-header-inner">
+      <div>
+        <h1 class="app-title">📚 Bibliotheca</h1>
+        <p class="app-subtitle" id="library-stats">Loading your library…</p>
+      </div>
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        type="button"
+        aria-label="Switch to dark mode"
+        title="Toggle dark/light mode"
+      >🌙</button>
+    </div>
   </header>
 
   <!-- Search: role="search" landmark per ARIA -->
@@ -37,6 +48,14 @@
     >&times;</button>
   </div>
 
+  <!-- Filter bar -->
+  <div class="filter-bar" role="group" aria-label="Filter books by status">
+    <button class="filter-btn filter-btn--active" data-filter="all" type="button">All</button>
+    <button class="filter-btn" data-filter="unread" type="button">📖 Unread</button>
+    <button class="filter-btn" data-filter="reading" type="button">📘 Reading</button>
+    <button class="filter-btn" data-filter="read" type="button">✅ Read</button>
+  </div>
+
   <!-- Main content: book grid -->
   <main id="main-content" class="main-content">
     <!-- Book grid rendered here by app.js -->
@@ -49,6 +68,52 @@
       <p class="empty-message"></p>
     </div>
   </main>
+
+  <!-- Add Book FAB -->
+  <button
+    id="add-book-btn"
+    class="fab"
+    type="button"
+    aria-label="Add new book"
+    title="Add new book"
+  >＋</button>
+
+  <!-- Add Book Dialog -->
+  <dialog id="add-book-dialog" aria-label="Add new book" aria-modal="true">
+    <form id="add-book-form" novalidate>
+      <h2 class="dialog-title">📖 Add Book</h2>
+      <div class="form-group">
+        <label for="form-title">Title <span class="required" aria-hidden="true">*</span></label>
+        <input type="text" id="form-title" name="title" required autocomplete="off" placeholder="Book title">
+      </div>
+      <div class="form-group">
+        <label for="form-author">Author <span class="required" aria-hidden="true">*</span></label>
+        <input type="text" id="form-author" name="author" required autocomplete="off" placeholder="Author name">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="form-language">Language</label>
+          <select id="form-language" name="language">
+            <option value="English">🇬🇧 English</option>
+            <option value="Malayalam">🇮🇳 Malayalam</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="form-genre">Genre</label>
+          <input type="text" id="form-genre" name="genre" placeholder="Fiction" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="form-pages">Total Pages <span class="required" aria-hidden="true">*</span></label>
+        <input type="number" id="form-pages" name="totalPages" min="1" required placeholder="e.g. 320">
+      </div>
+      <div id="add-book-error" class="form-error" role="alert" hidden></div>
+      <div class="form-actions">
+        <button type="button" id="add-book-cancel" class="btn-secondary">Cancel</button>
+        <button type="submit" class="btn-primary">Add Book</button>
+      </div>
+    </form>
+  </dialog>
 
   <!-- Footer -->
   <footer class="app-footer" role="contentinfo">
