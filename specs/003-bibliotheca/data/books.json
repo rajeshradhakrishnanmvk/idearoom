@@ -1,0 +1,1222 @@
+[
+  {
+    "id": "b147c89d",
+    "title": "The Lord of the Rings",
+    "author": "JRR Tolkien",
+    "language": "English",
+    "genre": "Fantasy",
+    "totalPages": 128,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "72877f52",
+    "title": "Rebecca",
+    "author": "Daphne du Maurier",
+    "language": "English",
+    "genre": "Fiction",
+    "totalPages": 96,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "24128416",
+    "title": "Marubhumigal Undakunnathu",
+    "author": "Anandh",
+    "language": "English",
+    "genre": "Fiction",
+    "totalPages": 432,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "322eb9ee",
+    "title": "Eni Njan Urangatte",
+    "author": "P.K. Balakrishnan",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 128,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "655be379",
+    "title": "Stuck on You —",
+    "author": "Unknown",
+    "language": "English",
+    "genre": "Romance",
+    "totalPages": 144,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "2caa9249",
+    "title": "The Pulp",
+    "author": "Pulp Stories",
+    "language": "English",
+    "genre": "Fiction",
+    "totalPages": 112,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "8ae44e31",
+    "title": "Later",
+    "author": "Stephen King",
+    "language": "English",
+    "genre": "Thriller",
+    "totalPages": 288,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "2ead2a78",
+    "title": "Twisted Mirrors",
+    "author": "The Edge of Reflection",
+    "language": "English",
+    "genre": "Thriller",
+    "totalPages": 112,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "25146301",
+    "title": "The Chemist",
+    "author": "Stephenie Meyer",
+    "language": "English",
+    "genre": "Thriller",
+    "totalPages": 384,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "9f2305db",
+    "title": "Ethics & Data Science",
+    "author": "Mike Loukides, Hillary Mason and D.J Patil",
+    "language": "English",
+    "genre": "Technology",
+    "totalPages": 480,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "131361c3",
+    "title": "Lattitudes of Longing",
+    "author": "Shubhangi Swarup",
+    "language": "English",
+    "genre": "Literary Fiction",
+    "totalPages": 512,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "65432e62",
+    "title": "Mr. Mercedes",
+    "author": "Stephen King",
+    "language": "English",
+    "genre": "Thriller",
+    "totalPages": 192,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "692da9fd",
+    "title": "Lost in Arcadia —",
+    "author": "Unknown",
+    "language": "English",
+    "genre": "Fiction",
+    "totalPages": 720,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "353115f8",
+    "title": "The Sky Below",
+    "author": "Scott Parazynski with Susy",
+    "language": "English",
+    "genre": "Science",
+    "totalPages": 96,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "b71a662f",
+    "title": "Learning Python with Raspberry Pi",
+    "author": "Alex Bradbury and Ben Everard",
+    "language": "English",
+    "genre": "Technology",
+    "totalPages": 160,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "0326c26d",
+    "title": "The Goldy",
+    "author": "Donna",
+    "language": "English",
+    "genre": "Thriller",
+    "totalPages": 352,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "c9a6e86d",
+    "title": "Death in Sweden",
+    "author": "Kevin Wignall",
+    "language": "English",
+    "genre": "Thriller",
+    "totalPages": 256,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "d880ac3d",
+    "title": "Wrath",
+    "author": "Mark Wheaton",
+    "language": "English",
+    "genre": "Thriller",
+    "totalPages": 144,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "1eed2c50",
+    "title": "The Girl on the Train",
+    "author": "Paula Hawkins",
+    "language": "English",
+    "genre": "Thriller",
+    "totalPages": 640,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "59ee24f7",
+    "title": "Cold Black Earth",
+    "author": "Sam Reaves",
+    "language": "English",
+    "genre": "Thriller",
+    "totalPages": 208,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "d6d4236c",
+    "title": "Kissing Mr. Right —",
+    "author": "Unknown",
+    "language": "English",
+    "genre": "Romance",
+    "totalPages": 256,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "675ae1e9",
+    "title": "Here & There —",
+    "author": "Unknown",
+    "language": "English",
+    "genre": "Fiction",
+    "totalPages": 224,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "2d6e80b1",
+    "title": "Never Never",
+    "author": "Colleen Hoover",
+    "language": "English",
+    "genre": "Fiction",
+    "totalPages": 480,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "a7da023b",
+    "title": "Randamuzham",
+    "author": "M.T. Vasudevan Nair",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 800,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "a33dd9c5",
+    "title": "Susannayude Grandhapura",
+    "author": "Ajay P",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 288,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "99fe4021",
+    "title": "Biriyani",
+    "author": "Santhosh Echikanam",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 256,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "8312797f",
+    "title": "Kalyaniyum Dhashayaniyum Peraya Randu Sthrigalude Katha",
+    "author": "R. Rajashree",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 192,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "c45cb0ba",
+    "title": "Kathaezhuthu",
+    "author": "K.R. Meera",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 160,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "f899612a",
+    "title": "Yakshi",
+    "author": "Malayattoor",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 176,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "0d54c657",
+    "title": "Goblin",
+    "author": "Kunanthan Ramachandran",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 176,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "47944971",
+    "title": "Nashtapetta Nilamberi",
+    "author": "Madavikutty",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 432,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "f8113ac4",
+    "title": "Pokkuveyilil Kuthirakal",
+    "author": "Sathyan",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 432,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "28eca6f6",
+    "title": "Oru Sangeerthanam Pole",
+    "author": "Perumpadavam",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 432,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "2d67e88b",
+    "title": "Ente Katha",
+    "author": "Madhavikutty",
+    "language": "Malayalam",
+    "genre": "Biography",
+    "totalPages": 192,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "01a52924",
+    "title": "Kadhakal",
+    "author": "K.R. Meera",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 480,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "66cff333",
+    "title": "Kabhar",
+    "author": "K.R. Meera",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 384,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "a210db0e",
+    "title": "Samudrashila",
+    "author": "Subhash Chandran",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 96,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "0ea17e53",
+    "title": "Agocharam",
+    "author": "Nikhilesh Menon",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 352,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "8e115cb9",
+    "title": "The Kitemaker",
+    "author": "Ruskin Bond",
+    "language": "English",
+    "genre": "Short Stories",
+    "totalPages": 640,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "16d90013",
+    "title": "Mazhakannadi",
+    "author": "Innocent",
+    "language": "Malayalam",
+    "genre": "Biography",
+    "totalPages": 96,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "7a27b930",
+    "title": "Mangalyan",
+    "author": "Dr.",
+    "language": "English",
+    "genre": "Science",
+    "totalPages": 576,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "0de11b40",
+    "title": "More Stories",
+    "author": "Rabindranath Tagore",
+    "language": "English",
+    "genre": "Short Stories",
+    "totalPages": 112,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "1d8b405b",
+    "title": "Akashathinte Chuvattil",
+    "author": "M. Mukundan",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 400,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "842b1478",
+    "title": "Velayathu Buddha",
+    "author": "G.R. Indugopan",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 576,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "ad2e8822",
+    "title": "Kappithante Bharya",
+    "author": "Bipin Chandran",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 480,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "aef2c663",
+    "title": "Krishiym Mannum, Karshiga Pazhancholugalum —",
+    "author": "Unknown",
+    "language": "Malayalam",
+    "genre": "Non-Fiction",
+    "totalPages": 800,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "7c7ddd9c",
+    "title": "Khasakkinte Ithihasam",
+    "author": "O.V. Vijayan",
+    "language": "Malayalam",
+    "genre": "Literary Fiction",
+    "totalPages": 192,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "ea93be64",
+    "title": "Survey of Kerala History",
+    "author": "A. Sreedhara Menon",
+    "language": "Malayalam",
+    "genre": "History",
+    "totalPages": 256,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "69c918a4",
+    "title": "Manju",
+    "author": "M.T. Vasudevan Nair",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 96,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "5533ab68",
+    "title": "Pavangal",
+    "author": "Victor Hugo",
+    "language": "Malayalam",
+    "genre": "Classic",
+    "totalPages": 288,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "81381a14",
+    "title": "Thaskaran Maniyanpillayude Atmakatha —",
+    "author": "Unknown",
+    "language": "Malayalam",
+    "genre": "Biography",
+    "totalPages": 432,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "b08733ce",
+    "title": "Sambarkkakranthi",
+    "author": "V. Shinilal",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 144,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "4c99e1a7",
+    "title": "Energize Your Mind —",
+    "author": "Unknown",
+    "language": "English",
+    "genre": "Self-Help",
+    "totalPages": 176,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "d3a75dd6",
+    "title": "One Piece: Ace's Story —",
+    "author": "Unknown",
+    "language": "English",
+    "genre": "Fantasy",
+    "totalPages": 288,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "812364b2",
+    "title": "21 Lessons for the 21st Century",
+    "author": "Yuval Noah Harari",
+    "language": "English",
+    "genre": "History",
+    "totalPages": 240,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "ee0fa1a9",
+    "title": "Lisey's Story",
+    "author": "Stephen King",
+    "language": "English",
+    "genre": "Thriller",
+    "totalPages": 240,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "a492417b",
+    "title": "Kairos",
+    "author": "Jenny Erpenbeck",
+    "language": "English",
+    "genre": "Literary Fiction",
+    "totalPages": 368,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "ffc195e6",
+    "title": "The Hobbit",
+    "author": "JRR Tolkien",
+    "language": "English",
+    "genre": "Fantasy",
+    "totalPages": 192,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "b6d252c3",
+    "title": "Dopamine Nation",
+    "author": "Dr. Anna Lembke",
+    "language": "English",
+    "genre": "Psychology",
+    "totalPages": 288,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "a0421cf8",
+    "title": "Behave",
+    "author": "Robert Sapolsky",
+    "language": "English",
+    "genre": "Psychology",
+    "totalPages": 304,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "10270138",
+    "title": "The School of Life",
+    "author": "Alain de Botton",
+    "language": "English",
+    "genre": "Philosophy",
+    "totalPages": 480,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "583c7993",
+    "title": "The Hidden Hindu - 1",
+    "author": "Akshat Gupta",
+    "language": "English",
+    "genre": "Mythology",
+    "totalPages": 432,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "97f60ff5",
+    "title": "Drawing: Complete Guide to Nature —",
+    "author": "Unknown",
+    "language": "English",
+    "genre": "Art",
+    "totalPages": 480,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "72f5081a",
+    "title": "Cosmology of Monsters",
+    "author": "Shaun Hamill",
+    "language": "English",
+    "genre": "Horror",
+    "totalPages": 256,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "4f060346",
+    "title": "DUNE",
+    "author": "Frank Herbert",
+    "language": "English",
+    "genre": "Science Fiction",
+    "totalPages": 128,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "f89e41b5",
+    "title": "The Lost House on Needless Street",
+    "author": "Catriona Ward",
+    "language": "English",
+    "genre": "Horror",
+    "totalPages": 256,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "0c7bb542",
+    "title": "Ororo Manushyanum Jeevitham",
+    "author": "Benyamin",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 144,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "eaf4ca48",
+    "title": "Natural Language Processing with Transformers —",
+    "author": "Unknown",
+    "language": "English",
+    "genre": "Technology",
+    "totalPages": 256,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "648f1d97",
+    "title": "Deep Learning for Coders with fastai and Python",
+    "author": "Jeremy Howard and Sylvain Gugger",
+    "language": "English",
+    "genre": "Technology",
+    "totalPages": 96,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "9ad104bc",
+    "title": "Introduction to Machine Learning with Python",
+    "author": "Andreas C. Muller and Sarah Guido",
+    "language": "English",
+    "genre": "Technology",
+    "totalPages": 336,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "8c9b1b75",
+    "title": "Mathrubhumi Azhchapathippu Kathakal - 2021 —",
+    "author": "Unknown",
+    "language": "Malayalam",
+    "genre": "Short Stories",
+    "totalPages": 144,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "62e189fd",
+    "title": "Down Valley —",
+    "author": "Unknown",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 144,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "689dc869",
+    "title": "Karnataka Sangeetha Krithigal Part 1",
+    "author": "Suresh Narayanan",
+    "language": "Malayalam",
+    "genre": "Music",
+    "totalPages": 96,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "5c105936",
+    "title": "Karnataka Sangeetha Vicharangal —",
+    "author": "Unknown",
+    "language": "Malayalam",
+    "genre": "Music",
+    "totalPages": 144,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "14496612",
+    "title": "Murder in Madras",
+    "author": "G.R. Indugopan",
+    "language": "Malayalam",
+    "genre": "Thriller",
+    "totalPages": 512,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "de9dfe0e",
+    "title": "Bloody Mary",
+    "author": "Subhash Chandran",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 640,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "2ee00764",
+    "title": "Madhavi",
+    "author": "Sreeparvathi",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 128,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "b511c26b",
+    "title": "Prathamadrishtya",
+    "author": "Nikhilesh Menon",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 400,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "c9cad22c",
+    "title": "Drishyam 2",
+    "author": "Jeethu Joseph",
+    "language": "Malayalam",
+    "genre": "Thriller",
+    "totalPages": 352,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "abf91102",
+    "title": "Apoorvaragam —",
+    "author": "Unknown",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 640,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "cac8b303",
+    "title": "Bharathaparyadanam",
+    "author": "Kuttikrishna Marar",
+    "language": "Malayalam",
+    "genre": "Travel",
+    "totalPages": 368,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "30496172",
+    "title": "Manjadikuru Mattu Balanovelugalum",
+    "author": "Sumangala",
+    "language": "Malayalam",
+    "genre": "Children",
+    "totalPages": 208,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "3994cb30",
+    "title": "Rigvedam Bhashabhashyam",
+    "author": "O.M.C Narayanan Namboothiripadu",
+    "language": "Malayalam",
+    "genre": "Spirituality",
+    "totalPages": 112,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "806513fe",
+    "title": "Pattunoolpuzhu",
+    "author": "S. Hareesh",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 256,
+    "currentPage": 256,
+    "status": "read"
+  },
+  {
+    "id": "4e84a4d9",
+    "title": "Kathakan",
+    "author": "K.R. Meera",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 224,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "cc096b08",
+    "title": "Such a Long Journey",
+    "author": "Rohinton Mistry",
+    "language": "English",
+    "genre": "Literary Fiction",
+    "totalPages": 336,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "6b84d15f",
+    "title": "Aano",
+    "author": "G.R. Indugopan",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 480,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "4ab86a22",
+    "title": "Ningal",
+    "author": "M. Mukundan",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 512,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "5a90b5e4",
+    "title": "Veshappu Pranayam Unmadham",
+    "author": "Muhammad",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 272,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "75fe3973",
+    "title": "Ram C/O Anandhi —",
+    "author": "Unknown",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 144,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "b0e2bf56",
+    "title": "Ekanthayude Nooru Varsham —",
+    "author": "Unknown",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 800,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "681ac2d0",
+    "title": "M.T.yude Kadhakal",
+    "author": "M.T. Vasudevan Nair",
+    "language": "Malayalam",
+    "genre": "Short Stories",
+    "totalPages": 384,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "bbe2bf26",
+    "title": "Sapiens: A Brief History of Humankind",
+    "author": "Yuval Noah Harari",
+    "language": "English",
+    "genre": "History",
+    "totalPages": 336,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "52f6ce08",
+    "title": "Nireeshwaran",
+    "author": "V.J. James",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 352,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "3bd49fac",
+    "title": "The Honjin Murders",
+    "author": "Seishi Yokomizo",
+    "language": "English",
+    "genre": "Mystery",
+    "totalPages": 480,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "aacfe016",
+    "title": "Holly",
+    "author": "Stephen King",
+    "language": "English",
+    "genre": "Thriller",
+    "totalPages": 640,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "27f1edfe",
+    "title": "Gone with the Wind",
+    "author": "Margaret Mitchell",
+    "language": "English",
+    "genre": "Classic",
+    "totalPages": 304,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "c692419b",
+    "title": "Manushyan Oru Amukham —",
+    "author": "Unknown",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 368,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "0fa63b3d",
+    "title": "The Intelligent Investor",
+    "author": "Benjamin Graham",
+    "language": "English",
+    "genre": "Finance",
+    "totalPages": 192,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "8999267e",
+    "title": "Manthalirile 20 Communist Varshangal",
+    "author": "Benyamin",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 480,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "d6a6a211",
+    "title": "Chai Time at Cinnamon Gardens —",
+    "author": "Unknown",
+    "language": "English",
+    "genre": "Fiction",
+    "totalPages": 160,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "7279274f",
+    "title": "Maranavamsham",
+    "author": "V. Shajikumar",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 96,
+    "currentPage": 96,
+    "status": "read"
+  },
+  {
+    "id": "05319977",
+    "title": "Maranakoottu",
+    "author": "Benyamin",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 96,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "610d0313",
+    "title": "Deham",
+    "author": "Ajay P",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 128,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "d4edec13",
+    "title": "Varanasi",
+    "author": "M.T. Vasudevan Nair",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 576,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "c9cc1854",
+    "title": "Asuravithu",
+    "author": "M.T. Vasudevan Nair",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 128,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "41556066",
+    "title": "Pyre",
+    "author": "Perumal Murugan",
+    "language": "English",
+    "genre": "Literary Fiction",
+    "totalPages": 304,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "401cba49",
+    "title": "Njan",
+    "author": "N.N. Pillai",
+    "language": "Malayalam",
+    "genre": "Biography",
+    "totalPages": 176,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "7089eb1c",
+    "title": "Ettavum Priyappetta Ennodu",
+    "author": "Nimna V",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 368,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "1134ef85",
+    "title": "Mahabharata Unravelled II",
+    "author": "Ami Ganatra",
+    "language": "English",
+    "genre": "Mythology",
+    "totalPages": 320,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "279c83fc",
+    "title": "Meesha",
+    "author": "S. Hareesh",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 352,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "d057718c",
+    "title": "Njansnanam",
+    "author": "Subhash Chandran",
+    "language": "Malayalam",
+    "genre": "Biography",
+    "totalPages": 512,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "aea037b2",
+    "title": "One Part Woman —",
+    "author": "Unknown",
+    "language": "English",
+    "genre": "Fiction",
+    "totalPages": 96,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "2a0e1ff4",
+    "title": "Athiryakam",
+    "author": "R. Rajashree",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 208,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "b33cae5f",
+    "title": "The Metamorphosis",
+    "author": "Franz Kafka",
+    "language": "English",
+    "genre": "Classic",
+    "totalPages": 96,
+    "currentPage": 96,
+    "status": "read"
+  },
+  {
+    "id": "5aa93ca6",
+    "title": "Mullapooniramulla Pakalukal",
+    "author": "Benyamin",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 384,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "fb5deaea",
+    "title": "Manichitrathazhum Mattu Ormagalum —",
+    "author": "Unknown",
+    "language": "Malayalam",
+    "genre": "Non-Fiction",
+    "totalPages": 480,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "57adb57e",
+    "title": "Padakkam",
+    "author": "Varghese",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 224,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "d0f28c2c",
+    "title": "Autobiography of a Yogi",
+    "author": "Paramahansa Yogananda",
+    "language": "English",
+    "genre": "Autobiography",
+    "totalPages": 176,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "a46cc906",
+    "title": "The Happiest Man on Earth",
+    "author": "Eddie Jaku",
+    "language": "English",
+    "genre": "Biography",
+    "totalPages": 272,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "b66ef1db",
+    "title": "A Brief History of Time",
+    "author": "Stephen Hawking",
+    "language": "English",
+    "genre": "Science",
+    "totalPages": 432,
+    "currentPage": 0,
+    "status": "unread"
+  },
+  {
+    "id": "25e6958d",
+    "title": "Madangaleela",
+    "author": "Santhosh Echikanam",
+    "language": "Malayalam",
+    "genre": "Fiction",
+    "totalPages": 136,
+    "currentPage": 50,
+    "status": "reading"
+  }
+]

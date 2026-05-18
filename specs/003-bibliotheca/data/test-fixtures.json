@@ -1,0 +1,154 @@
+{
+  "edgeCases": [
+    {
+      "id": "edge-001",
+      "title": "",
+      "author": "Unknown Author",
+      "language": "English",
+      "genre": "Fiction",
+      "totalPages": 200,
+      "currentPage": 0,
+      "status": "unread",
+      "_test": "empty title"
+    },
+    {
+      "id": "edge-002",
+      "title": "Valid Title",
+      "author": "",
+      "language": "English",
+      "genre": "Fiction",
+      "totalPages": 200,
+      "currentPage": 0,
+      "status": "unread",
+      "_test": "empty author"
+    },
+    {
+      "id": "edge-003",
+      "title": "Zero Page Book",
+      "author": "Author",
+      "language": "English",
+      "genre": "Fiction",
+      "totalPages": 0,
+      "currentPage": 0,
+      "status": "unread",
+      "_test": "zero pages"
+    },
+    {
+      "id": "edge-004",
+      "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "author": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+      "language": "English",
+      "genre": "Fiction",
+      "totalPages": 9999,
+      "currentPage": 9999,
+      "status": "reading",
+      "_test": "max-length strings"
+    },
+    {
+      "id": "edge-005",
+      "title": "മലയാളം പുസ്തകം",
+      "author": "എഴുത്തുകാരൻ",
+      "language": "Malayalam",
+      "genre": "Fiction",
+      "totalPages": 150,
+      "currentPage": 75,
+      "status": "reading",
+      "_test": "unicode Malayalam"
+    },
+    {
+      "id": "edge-006",
+      "title": "Arabic كتاب",
+      "author": "مؤلف",
+      "language": "English",
+      "genre": "Fiction",
+      "totalPages": 100,
+      "currentPage": 0,
+      "status": "unread",
+      "_test": "arabic script"
+    },
+    {
+      "id": "edge-007",
+      "title": "Special <script>alert('xss')</script> Chars",
+      "author": "Hacker & Co.",
+      "language": "English",
+      "genre": "Fiction",
+      "totalPages": 50,
+      "currentPage": 0,
+      "status": "unread",
+      "_test": "XSS in fields"
+    },
+    {
+      "id": "edge-008",
+      "title": "Duplicate ID Test",
+      "author": "Author One",
+      "language": "English",
+      "genre": "Fiction",
+      "totalPages": 200,
+      "currentPage": 0,
+      "status": "unread",
+      "_test": "duplicate handling (same id as next)"
+    },
+    {
+      "id": "edge-008",
+      "title": "Duplicate ID Test",
+      "author": "Author Two",
+      "language": "Malayalam",
+      "genre": "Non-Fiction",
+      "totalPages": 300,
+      "currentPage": 150,
+      "status": "reading",
+      "_test": "duplicate id conflict"
+    },
+    {
+      "id": "edge-010",
+      "title": "Missing Fields Book",
+      "author": "Minimal",
+      "language": "English",
+      "_test": "missing genre/status/pages fields"
+    },
+    {
+      "id": "edge-011",
+      "title": "超長標題测试长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长",
+      "author": "中文作者",
+      "language": "English",
+      "genre": "Fiction",
+      "totalPages": 100,
+      "currentPage": 0,
+      "status": "unread",
+      "_test": "chinese characters"
+    },
+    {
+      "id": "edge-012",
+      "title": "Negative Pages",
+      "author": "Bug Author",
+      "language": "English",
+      "genre": "Fiction",
+      "totalPages": -1,
+      "currentPage": -5,
+      "status": "unread",
+      "_test": "negative values"
+    }
+  ],
+  "validation": {
+    "requiredFields": [
+      "id",
+      "title",
+      "author",
+      "language",
+      "genre",
+      "totalPages",
+      "currentPage",
+      "status"
+    ],
+    "validStatuses": [
+      "unread",
+      "reading",
+      "read"
+    ],
+    "validLanguages": [
+      "English",
+      "Malayalam"
+    ],
+    "idPattern": "^[a-f0-9]{8}$"
+  }
+}
