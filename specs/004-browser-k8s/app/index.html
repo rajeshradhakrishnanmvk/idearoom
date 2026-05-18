@@ -70,6 +70,26 @@
         </section>
 
         <section class="panel">
+            <h2>Namespace Quota Policy</h2>
+            <form id="policy-form" class="stack">
+                <label>
+                    Namespace
+                    <input type="text" name="namespace" placeholder="ideas" required>
+                </label>
+                <label>
+                    Max Running Workloads
+                    <input type="number" name="maxWorkers" min="1" value="8" required>
+                </label>
+                <label>
+                    Max Aggregate Memory (KB)
+                    <input type="number" name="maxMemoryKb" min="64" value="2048" required>
+                </label>
+                <button type="submit">Set Policy</button>
+            </form>
+            <div id="namespace-policy-list" class="registry-list"></div>
+        </section>
+
+        <section class="panel">
             <h2>Launch Workload</h2>
             <form id="workload-form" class="stack">
                 <label>
@@ -95,6 +115,14 @@
                     Manual Node
                     <select name="manualNode" id="manual-node"></select>
                 </label>
+                <label>
+                    Tick Timeout (ms)
+                    <input type="number" name="tickTimeoutMs" min="50" value="1000" required>
+                </label>
+                <label>
+                    Memory Soft Quota (KB)
+                    <input type="number" name="memorySoftQuotaKb" min="16" value="256" required>
+                </label>
                 <button type="submit">Launch</button>
             </form>
         </section>
@@ -113,6 +141,11 @@
         <section class="panel panel-wide">
             <div class="toolbar">
                 <h2>Artifacts</h2>
+                <div class="summary">
+                    <button id="export-artifacts" type="button">Export Bundles</button>
+                    <button id="import-artifacts" type="button">Import Bundles</button>
+                    <input id="artifact-import-file" type="file" accept="application/json" hidden>
+                </div>
             </div>
             <div id="artifact-list" class="registry-list"></div>
         </section>
@@ -136,6 +169,50 @@
                 <h2>Cluster Events</h2>
             </div>
             <div id="event-list" class="registry-list"></div>
+        </section>
+
+        <section class="panel panel-wide">
+            <div class="toolbar">
+                <h2>Runtime Logs</h2>
+            </div>
+            <div id="log-list" class="registry-list"></div>
+        </section>
+
+        <section class="panel panel-wide">
+            <div class="toolbar">
+                <h2>Worker Trace Timeline</h2>
+            </div>
+            <div id="trace-list" class="registry-list"></div>
+        </section>
+
+        <section class="panel panel-wide">
+            <div class="toolbar">
+                <h2>Global Trace Explorer</h2>
+            </div>
+            <form id="trace-filter-form" class="stack service-grid">
+                <label>
+                    Workload Filter
+                    <input type="text" id="trace-filter-workload" placeholder="flow-unit">
+                </label>
+                <label>
+                    Type Filter
+                    <select id="trace-filter-type">
+                        <option value="">All</option>
+                        <option value="schedule">schedule</option>
+                        <option value="start">start</option>
+                        <option value="tick">tick</option>
+                        <option value="memoryWarn">memoryWarn</option>
+                        <option value="memoryRecover">memoryRecover</option>
+                        <option value="stop">stop</option>
+                        <option value="error">error</option>
+                    </select>
+                </label>
+                <label>
+                    Text Filter
+                    <input type="text" id="trace-filter-text" placeholder="contains text">
+                </label>
+            </form>
+            <div id="global-trace-list" class="registry-list"></div>
         </section>
     </main>
 
